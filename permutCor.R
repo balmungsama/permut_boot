@@ -15,7 +15,7 @@ boot.CI.correl <- function(X.in, fun, R, Use, ...){
   return(boot.stat)
 }
 
-permuCor <- function(x1, x2, 
+permu_correl <- function(x1, x2, 
 											fun = cor, 
 											nsims = 1000, p = 0.05, var.names = NULL, plot = TRUE, boot.CI.correl = TRUE, CI.thresh = 0.95, plot.title = NULL, ...) {
 	require(ggplot2)
