@@ -1,4 +1,4 @@
-f <- function(d, i){
+fcorrel <- function(d, i){
   d2 <- d[i,]
   d2.x1 <- d2$x1
   d2.x2 <- d2$x2
@@ -9,15 +9,15 @@ f <- function(d, i){
   return(value)
 }
 
-boot.CI <- function(X.in, fun, R, Use, ...){
+boot.CI.correl <- function(X.in, fun, R, Use, ...){
   require(boot)
-  boot.stat <- boot(X.in, statistic = f, R = R)
+  boot.stat <- boot(X.in, statistic = fcorrel, R = R)
   return(boot.stat)
 }
 
 permuCor <- function(x1, x2, 
 											fun = cor, 
-											nsims = 1000, p = 0.05, var.names = NULL, plot = TRUE, boot.CI = TRUE, CI.thresh = 0.95, plot.title = NULL, ...) {
+											nsims = 1000, p = 0.05, var.names = NULL, plot = TRUE, boot.CI.correl = TRUE, CI.thresh = 0.95, plot.title = NULL, ...) {
 	require(ggplot2)
 	
 	if(is.null(var.names)){
@@ -63,18 +63,18 @@ permuCor <- function(x1, x2,
 	}
 	
 	# compute the bootstrap confidence intervals for the function of interest
-	if(boot.CI == T){
+	if(boot.CI.correl == T){
 		# pool.tab  <- data.frame(names = pool.labs, values = pool.vals)
 		boot.tab  <- data.frame(x1 = x1, x2 = x2)
 		
-		boot.stat <- boot.CI(X.in = boot.tab, fun = fun, R = nsims)
-		boot.CI   <- boot.ci(boot.stat, type='perc', conf = CI.thresh)
+		boot.stat <- boot.CI.correl(X.in = boot.tab, fun = fun, R = nsims)
+		boot.CI.correl   <- boot.CI.correl(boot.stat, type='perc', conf = CI.thresh)
 	}
 	rm(fun, envir = .GlobalEnv)
 	
 	if(plot==TRUE){
-		boot.xmin <- boot.CI$percent
-		boot.xmax <- boot.CI$percent
+		boot.xmin <- boot.CI.correl$percent
+		boot.xmax <- boot.CI.correl$percent
 		boot.xmin <- as.numeric(boot.xmin[length(boot.xmin)-1])
 		boot.xmax <- as.numeric(boot.xmax[length(boot.xmax)  ])
 		

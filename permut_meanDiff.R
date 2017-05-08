@@ -1,4 +1,4 @@
-f <- function(d, i){
+fmean <- function(d, i){
   d2 <- d[i,]
   
   # if(boot.count>1) (browser())
@@ -16,7 +16,7 @@ f <- function(d, i){
 
 boot.CI.mean <- function(X.in, fun, R, Use, ...){
   require(boot)
-  boot.stat <- boot(data = X.in, statistic = f, R = R, strata = X.in$labels)
+  boot.stat <- boot(data = X.in, statistic = fmean, R = R, strata = X.in$labels)
   return(boot.stat)
 }
 
