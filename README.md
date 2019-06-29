@@ -1,4 +1,4 @@
-# permut&boot.R
+# permut_boot
 Conduct permutation tests with bootstrapped confidence intervals
 
 This package is designed to provide easy and user-friendly access to permuted differences tests and bootstrap-resampled confidence intervals.
